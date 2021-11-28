@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/page2_page.css') }}">
+
+
+    <script>
+        function random(num) {
+            return Math.floor(Math.random() * num)
+        }
+
+        function getRandomStyles() {
+            var r = random(255);
+            var g = random(255);
+            var b = random(255);
+            var mt = random(200);
+            var ml = random(50);
+            var dur = random(5) + 5;
+            return `
+  background-color: rgba(${r},${g},${b},0.7);
+  color: rgba(${r},${g},${b},0.7);
+  box-shadow: inset -7px -3px 10px rgba(${r - 10},${g - 10},${b - 10},0.7);
+  margin: ${mt}px 0 0 ${ml}px;
+  animation: float ${dur}s ease-in infinite
+  `
+        }
+
+        function createBalloons(num) {
+            var balloonContainer = document.getElementById("balloon-container")
+            for (var i = num; i > 0; i--) {
+                var balloon = document.createElement("div");
+                balloon.className = "balloon";
+                balloon.style.cssText = getRandomStyles();
+                balloonContainer.append(balloon);
+            }
+        }
+
+        window.onload = function () {
+            createBalloons(100);
+        }
+    </script>
+</head>
+
+
+<body id="balloon-container">
+{% extends "layout_without_css.html" %}
+{% block content %}
+<div class="about">
+    <div class="row" id="wrapper">
+        <div class="wrapper">
+            <div class="typing-demo">UPLOAD!!!</div>
+        </div>
+        Got an artpiece to send? Awesome! Our team will review them and post them if they are
+        valid!
+        <p>
+            Send your message in the form below and we will get back to you as early as possible.
+        </p>
+        <form action="/process" role="form" method="post" id="reused_form" enctype="multipart/form-data">
+
+            <label>Name of uploader:</label>
+            <input type="text" class="form-control" name="username" required maxlength="50">
+
+            <br><br><br>
+
+
+            <label>Name of artist: (put 'none' if none)</label>
+            <input type="text" class="form-control" name="artist" required maxlength="50">
+
+
+            <br><br><br>
+
+            <label>Artpiece title: </label>
+            <input type="text" class="form-control" name="title" required maxlength="50">
+
+            <br><br><br>
+
+            <label>Email:</label>
+            <input type="text" class="form-control" name="email" required maxlength="50">
+
+            <br><br><br>
+
+            <label>Message:</label><br> <label style="color: red;">Maximum length: 6000 characters</label>
+            <input style=" width: 500px; height: 100px; " type="text" class="form-control" name="message"
+                   id="message" placeholder="Your Message Here"
+                   maxlength="6000" rows="7">
+
+            <br><br><br>
+
+            <label>Artpiece type:</label>
+            <input type="radio" class="form-control" name="options" id="option1" value="Sculpture">
+            Sculpture </input><br>
+            <input type="radio" class="form-control" name="options" id="option2" value="Painting"> Painting </input>
+            <br>
+            <input type="radio" class="form-control" name="options" id="option3" value="Digital art"> Digital
+            art </input><br>
+            <input type="radio" class="form-control" name="options" id="option4" value="Drawing"> Drawing </input>
+            <br>
+
+            <br><br><br>
+
+
+            <label>Image Upload:</label>
+            <input type="file" class="form-control" name="image" required><br><br>
+
+            <label></label>
+            <input type="submit" name="my_button" value="Click to upload!">
+        </form>
+
+    </div>
+    <div class="wrapper" style="position: absolute; top: 5000px; width: 50%;">
+        <div class="typing-demo">
+            Oh, so you've found our little Easter egg...
+        Vote for me!
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+</body>
+</html>
+

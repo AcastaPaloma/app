@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask app</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+
+
+
+
+</head>
+
+
+<body>
+<header>
+
+
+    <div class="container">
+        <strong>
+            <nav>
+                <ul class="menu">
+
+                    <span class="button_cont" align="center"><a class="example_e" href="{{ url_for('home') }}"
+                                                                target="_self" rel="nofollow noopener">Home</a></span>
+
+                    <span class="button_cont" align="center"><a class="example_e" href="{{ url_for('search') }}" target="_self" rel="nofollow noopener">Search!</a></span>
+
+
+                    <span class="button_cont" align="center"><a class="example_e" href="{{ url_for('about') }}"
+                                                                target="_self" rel="nofollow noopener">Upload</a></span>
+
+
+                    <span class="button_cont" align="center"><a class="example_e" href="{{ url_for('servers') }}"
+                                                                target="_self"
+                                                                rel="nofollow noopener">Discover more!</a></span>
+                </ul>
+            </nav>
+        </strong>
+    </div>
+</header>
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+</html>

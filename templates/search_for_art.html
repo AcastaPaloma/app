@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_for_art_page.css') }}">
+
+</head>
+
+<body>
+{% extends "layout_without_css.html" %}
+{% block content %}
+
+<div class="search-box">
+
+
+    <form action="/search_results" method="post" class="search_rectangle">
+
+        <input type="text" class="input-search" name="search_input" placeholder="Type to search...">
+
+        <button class="glow-on-hover" type="button"><input class="my_button" type="submit" style="display: none;">Search!
+        </button>
+
+
+        <div class="output" style="">
+
+            {% for item in records %}
+
+            <div class="container_of_table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Artpiece</th>
+                        <th>Artist name</th>
+                        <th>Description</th>
+                        <th>Link to details</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="image_container"><img src="/static/uploaded-images/{{item[6]}}" style="width: 30vw; height:auto;"></td>
+                        <td>{{item[1]}}</td>
+                        <td>{{item[2]}}</td>
+                        <td><button class="glow-on-hover" type="button" style="position: absolute; top: 50% !important; right: -36.75vw !important;"><a style = "color: antiquewhite !important;" href="/details_of_art?name={{item[1]}}&artist_name={{item[2]}}&image_name={{item[3]}}&email={{item[4]}}&message={{item[5]}}&image_filename={{item[6]}}"> Visit details!</a>
+                        </button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <br>
+            {% endfor %}
+
+
+        </div>
+</div>
+
+
+{% endblock %}
+</body>
+</html>

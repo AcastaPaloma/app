@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/social_page.css') }}">
+
+</head>
+
+<body>
+{% extends "layout_without_css.html" %}
+{% block content %}
+
+
+<div class="discord">
+    <img class="disc_logo" style="position:relative;top:100px;left:150px;"
+         src='https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png'>
+
+    <div class="wrapper">
+        <div class="typing-demo">
+            Discord servers:
+        </div>
+    </div>
+
+
+    {% for server in server_records%}
+    <span class="cards">
+        <a href="{{server[3]}}" class="card">
+          <img src="https://i.imgur.com/oYiTqum.jpg" class="card__image" alt=""/>
+          <div class="card__overlay">
+            <div class="card__header">
+              <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path/></svg>
+              <img class="card__thumb" src="static/discord_server_icons/{{server[4]}}" alt=""/>
+              <div class="card__header-text">
+                <h3 class="card__title">{{server[1]}}</h3>
+                <span class="card__status">{{server[2]}}</span>
+              </div>
+            </div>
+            <p class="card__description">{{server[5]}}</p>
+          </div>
+        </a>
+        </li>
+        <li>
+          </span>
+    {% endfor %}
+
+
+    {% endblock %}
+</body>
+</html>
+

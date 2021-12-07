@@ -6,6 +6,16 @@
 
 </head>
 
+<script>
+    // When the user clicks on div, open the popup
+    function myFunction() {
+        var popup = document.getElementById("myPopup");
+        popup.classList.toggle("show");
+    }
+
+</script>
+
+
 <body>
 {% extends "layout_without_css.html" %}
 {% block content %}
@@ -17,31 +27,53 @@
 
         <input type="text" class="input-search" name="search_input" placeholder="Type to search...">
 
-        <button class="glow-on-hover" type="button"><input class="my_button" type="submit" style="display: none;">Search!
+        <button class="glow-on-hover" type="button" onclick="return show('myDIV');"><input class="my_button"
+                                                                                           type="submit"
+                                                                                           style="display: none;">Search!
         </button>
 
+        <div class="box">
+            <a class="button_popup" href="#popup1">Click me BEFORE you search for your first time!</a>
+        </div>
+
+        <div id="popup1" class="overlay">
+            <div class="popup">
+                <h2>To search: </h2>
+                <a class="close" href="#">&times;</a>
+                <div class="content">
+                    Please use simple keywords like "Pokemon" or "Digital art"!
+                </div>
+            </div>
+        </div>
 
         <div class="output" style="">
 
             {% for item in records %}
 
-            <div class="container_of_table">
+            <div id="container_of_table" class="container_of_table">
                 <table>
                     <thead>
                     <tr>
                         <th>Artpiece</th>
-                        <th>Artist name</th>
-                        <th>Description</th>
+                        <th>Uploader's name</th>
+                        <th>Artist</th>
                         <th>Link to details</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td class="image_container"><img src="/static/uploaded-images/{{item[6]}}" style="width: 30vw; height:auto;"></td>
+                        <td class="image_container"><img src="/static/uploaded-images/{{item[6]}}"
+                                                         style="width: 30vw; height:auto;"></td>
                         <td>{{item[1]}}</td>
                         <td>{{item[2]}}</td>
-                        <td><button class="glow-on-hover" type="button" style="position: absolute; top: 50% !important; right: -36.75vw !important;"><a style = "color: antiquewhite !important;" href="/details_of_art?name={{item[1]}}&artist_name={{item[2]}}&image_name={{item[3]}}&email={{item[4]}}&message={{item[5]}}&image_filename={{item[6]}}"> Visit details!</a>
-                        </button></td>
+                        <td>
+                            <button class="glow-on-hover" type="button" style="position: absolute !important; top: 50% !important; right: -90% !important;"
+                                    style="position: absolute; top: 50% !important; right: -36.75vw !important;"><a
+                                    style="color: antiquewhite !important;"
+                                    href="/details_of_art?name={{item[1]}}&artist_name={{item[2]}}&image_name={{item[3]}}&email={{item[4]}}&message={{item[5]}}&image_filename={{item[6]}}">
+                                Visit details!</a>
+                            </button>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -50,7 +82,6 @@
 
             <br>
             {% endfor %}
-
 
         </div>
 </div>

@@ -5,8 +5,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
 
 
-
-
 </head>
 
 
@@ -22,7 +20,9 @@
                     <span class="button_cont" align="center"><a class="example_e" href="{{ url_for('home') }}"
                                                                 target="_self" rel="nofollow noopener">Home</a></span>
 
-                    <span class="button_cont" align="center"><a class="example_e" href="{{ url_for('search') }}" target="_self" rel="nofollow noopener">Search!</a></span>
+                    <span class="button_cont" align="center"><a class="example_e" href="{{ url_for('search') }}"
+                                                                target="_self"
+                                                                rel="nofollow noopener">Search!</a></span>
 
 
                     <span class="button_cont" align="center"><a class="example_e" href="{{ url_for('about') }}"
@@ -37,6 +37,15 @@
         </strong>
     </div>
 </header>
+
+
+<footer>
+
+    <p style="">Author: Kuan Yi Wang<br>
+        Thanks for voting for me! Follow me on Instagram <a href="https://www.instagram.com/acastajuanjui/">here</a>!!!</p>
+</footer>
+
+
 <div class="container">
     {% block content %}
     {% endblock %}

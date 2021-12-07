@@ -5,12 +5,14 @@ body {
     color: #444;
     background-image: url(/static/images/pokeball_background.jpg);
     background-position: center;
+
 }
 
 
 header {
     background-image: url(/static/images/vulpix.jpg);
-    height: 130px;
+    background-repeat: repeat;
+    height: 15vh;
     width: 100%;
     opacity: 100;
     margin-bottom: 10px;
@@ -25,7 +27,6 @@ header {
 * {
     box-sizing: border-box;
 }
-
 
 
 .menu {
@@ -48,9 +49,6 @@ header {
 }
 
 
-
-
-
 .example_e {
     border: none;
     background: #404040;
@@ -71,4 +69,16 @@ header {
     -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
     -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
     transition: all 0.3s ease 0s;
+}
+
+
+footer {
+    position: fixed;
+    width: 100%;
+    text-align: center;
+    bottom: 0px;
+    padding: 3px;
+    background-color: DarkSalmon;
+    color: white;
+    z-index: 100;
 }

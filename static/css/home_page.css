@@ -104,7 +104,7 @@
 }
 
 .wrapper {
-  height: 30vh;
+  height: 25vh;
   /*This part is important for centering*/
   display: flex;
   align-items: center;

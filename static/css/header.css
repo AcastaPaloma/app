@@ -11,18 +11,16 @@ body {
 
 header {
     background-image: url(/static/images/vulpix.jpg);
-    background-repeat: repeat;
+    background-repeat: repeat !important;
     height: 15vh;
-    width: 100%;
+    width: 100vw;
     opacity: 100;
     margin-bottom: 10px;
     display: block;
+
 }
 
-.container {
-    margin-top: 50px auto;
-    margin-left: 120px;
-}
+
 
 * {
     box-sizing: border-box;
@@ -31,7 +29,7 @@ header {
 
 .menu {
     float: right;
-    margin-top: 50px;
+    margin-top: 6vh;
     margin-left: 45px;
 }
 
@@ -79,6 +77,6 @@ footer {
     bottom: 0px;
     padding: 3px;
     background-color: DarkSalmon;
-    color: white;
+    color: white !important;
     z-index: 100;
 }

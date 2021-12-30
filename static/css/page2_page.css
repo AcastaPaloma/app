@@ -11,13 +11,15 @@ div.about {
 
 .row {
     position: absolute;
+
+    margin-top: 16vh;
+
     left: 25%;
     width: 50%;
     text-align: center !important;
     background-color: rgb(230, 230, 250, 0.7) !important;
 
     height: 850px !important;
-    margin: auto !important;
 
     -webkit-border-radius: 6px !important;
     -moz-border-radius: 6px !important;
@@ -77,7 +79,7 @@ div.about {
 
 
 .wrapper {
-    height: 100px;
+    height: 20vh;
     width: 100%;
     /*This part is important for centering*/
     display: flex;
@@ -86,13 +88,13 @@ div.about {
 }
 
 .typing-demo {
-    width: 100ch;
+    width: 150ch;
     animation: typing 2s steps(22), blink .5s step-end infinite alternate;
     white-space: nowrap;
     overflow: hidden;
     border-right: 3px solid;
     font-family: "Brush Script MT";
-    font-size: 3em;
+    font-size: 2em;
 
 @keyframes typing {
     from {

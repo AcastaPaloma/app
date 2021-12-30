@@ -37,7 +37,7 @@
         }
 
         window.onload = function () {
-            createBalloons(100);
+            createBalloons(15);
         }
     </script>
 </head>
@@ -54,36 +54,36 @@
         Got an artpiece to send? Awesome! Fill out the necessary information below!<br><br>
         <form action="/process" role="form" method="post" id="reused_form" enctype="multipart/form-data">
 
-            <label>Name of uploader:</label>
+            <label>Name of uploader: (no special characters)</label>
             <input type="text" class="form-control" name="username" required maxlength="50">
 
             <br><br><br>
 
 
-            <label>Name of artist: (put 'none' if none)</label>
+            <label>Name of artist: (put 'unknown' if not known and no special characters)</label>
             <input type="text" class="form-control" name="artist" required maxlength="50">
 
 
             <br><br><br>
 
-            <label>Artpiece title: </label>
+            <label>Artpiece title: (no special characters)</label>
             <input type="text" class="form-control" name="title" required maxlength="50">
 
             <br><br><br>
 
-            <label>Email:</label>
+            <label>Email: (no special characters)</label>
             <input type="text" class="form-control" name="email" required maxlength="50">
 
             <br><br><br>
 
-            <label>Message:</label><br> <label style="color: red;">Maximum length: 6000 characters</label>
+            <label>Message: (no special characters)</label><br> <label style="color: red;">Maximum length: 6000 characters</label>
             <input style=" width: 500px; height: 100px; " type="text" class="form-control" name="message"
                    id="message" placeholder="Your Message Here"
                    maxlength="6000" rows="7">
 
             <br><br><br>
 
-            <label>Artpiece type:</label>
+            <label>Artpiece type: (no special characters)</label>
             <input type="radio" class="form-control" name="options" id="option1" value="Sculpture">
             Sculpture </input><br>
             <input type="radio" class="form-control" name="options" id="option2" value="Painting"> Painting </input>
@@ -96,7 +96,7 @@
             <br><br><br>
 
 
-            <label>Image Upload:</label>
+            <label>Image Upload: (no special characters)</label>
             <input type="file" class="form-control" name="image" required><br><br>
 
             <label></label>
@@ -104,9 +104,9 @@
         </form>
 
     </div>
-    <div class="wrapper" style="position: absolute; top: 5000px; width: 50%;">
+    <div class="wrapper" style="position: absolute; top: 250%; width: 50%;">
         <div class="typing-demo">
-            Oh, so you've found our little Easter egg...
+            Oh, so you've found our little Easter egg ...
         Vote for me!
         </div>
     </div>

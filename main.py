@@ -9,10 +9,10 @@ app = Flask(__name__)
 
 UPLOADED_FILE_DIR_PATH = os.path.join(os.path.dirname(__file__), "static", "uploaded-images")
 UPLOADED_ICON_FILE_DIR_PATH = os.path.join(os.path.dirname(__file__), "static", "discord_server_icons")
-
+DATA_BASE_FILE_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'database2.sqlite')
 
 def check_to_create_table():
-    connection = sqlite3.connect('database2.sqlite')
+    connection = sqlite3.connect(DATA_BASE_FILE_PATH)
     cur = connection.cursor()
     cur.execute(
         'CREATE TABLE IF NOT EXISTS Artpieces ( id INTEGER PRIMARY KEY, name TEXT NOT NULL, artist_name TEXT NOT NULL, image_name TEXT NOT NULL, email TEXT NOT NULL, message TEXT NOT NULL, image_filename TEXT NOT NULL, artpiece_type TEXT NOT NULL)')
@@ -21,21 +21,28 @@ def check_to_create_table():
 
 
 def check_to_create_table_discord_server_info():
-    connection = sqlite3.connect('database2.sqlite')
+    connection = sqlite3.connect(DATA_BASE_FILE_PATH)
     cur = connection.cursor()
     cur.execute(
         'CREATE TABLE IF NOT EXISTS Servers ( id INTEGER PRIMARY KEY, server_name TEXT, server_charact TEXT, link_to_server TEXT, server_icon_filename TEXT, server_description TEXT)')
 
     connection.close()
 
+def check_to_create_table_account_info():
+    connection = sqlite3.connect(DATA_BASE_FILE_PATH)
+    cur = connection.cursor()
+    cur.execute(
+        'CREATE TABLE IF NOT EXISTS Accounts ( id INTEGER PRIMARY KEY, username TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL)')
+
+    connection.close()
 
 check_to_create_table()
 check_to_create_table_discord_server_info()
-
+check_to_create_table_account_info()
 
 @app.route('/')
 def home():
-    connection = sqlite3.connect('database2.sqlite')
+    connection = sqlite3.connect(DATA_BASE_FILE_PATH)
     cur = connection.cursor()
     cur.execute("SELECT * FROM Artpieces WHERE artpiece_type='Painting'")
     records_of_painting = cur.fetchall()
@@ -136,6 +143,10 @@ def home():
                            , returned_sculptures=returned_sculptures
                            )
 
+@app.route('/create_account')
+def create_account():
+    return render_template('create_account.html')
+
 
 @app.route('/search')
 def search():
@@ -146,11 +157,11 @@ def search():
 def search_results():
     requested_search = request.values.get("search_input")
 
-    connection = sqlite3.connect('database2.sqlite')
+    connection = sqlite3.connect(DATA_BASE_FILE_PATH)
     cur = connection.cursor()
     cur.execute(
-        "SELECT * FROM Artpieces WHERE name Like ? OR artist_name Like ? OR image_name Like ? OR artpiece_type Like ?",
-        (requested_search, requested_search, requested_search, requested_search))
+        "SELECT * FROM Artpieces WHERE name Like ? OR artist_name Like ? OR image_name Like ? OR artpiece_type Like ? OR email like ?",
+        (requested_search, requested_search, requested_search, requested_search, requested_search))
     records = cur.fetchall()
 
     connection.commit()
@@ -199,7 +210,7 @@ def process():
     my_file_path = os.path.join(UPLOADED_FILE_DIR_PATH, my_filename)
     image_file.save(my_file_path)
 
-    connection = sqlite3.connect('database2.sqlite')
+    connection = sqlite3.connect(DATA_BASE_FILE_PATH)
     cur = connection.cursor()
     cur.execute(
         "INSERT INTO Artpieces(name, artist_name, image_name, email, message, image_filename, artpiece_type) VALUES (?, ?, ?, ?, ?, ?, ?)",
@@ -212,10 +223,27 @@ def process():
                            email=email,
                            message=message)
 
+@app.route('/action_page')
+def action_page():
+    username = request.values.get('username')
+    email = request.values.get('email')
+    password = request.values.get('psw')
+
+    connection = sqlite3.connect(DATA_BASE_FILE_PATH)
+    cur = connection.cursor()
+    cur.execute(
+        "INSERT INTO Accounts (username, email, password) VALUES (?, ?, ?)",
+        (username, email, password))
+    connection.commit()
+    connection.close()
+
+    return render_template('successful_account_creation.html')
+
+
 
 @app.route('/social')
 def servers():
-    connection = sqlite3.connect('database2.sqlite')
+    connection = sqlite3.connect(DATA_BASE_FILE_PATH)
     cur = connection.cursor()
     cur.execute("SELECT * FROM Servers ")
     server_records = cur.fetchall()
@@ -246,7 +274,7 @@ def secret_upload():
     my_icon_file_path = os.path.join(UPLOADED_ICON_FILE_DIR_PATH, my_icon_filename)
     requested_icon_image_file.save(my_icon_file_path)
 
-    connection = sqlite3.connect('database2.sqlite')
+    connection = sqlite3.connect(DATA_BASE_FILE_PATH)
     cur = connection.cursor()
     cur.execute(
         "INSERT INTO Servers (server_name, server_charact, link_to_server, server_icon_filename, server_description) VALUES (?, ?, ?, ?, ?)",

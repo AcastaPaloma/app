@@ -16,8 +16,8 @@
 .card{
   position:relative;
   margin:20px 0;
-  width:700px;
-  height:1000px;
+  width:40vw;
+  height:105vh;
   background: #fff;
   transform-style:preserve-3d;
   transform:perspective(2000px);

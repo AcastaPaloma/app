@@ -1,5 +1,5 @@
 .input-search:focus {
-    width: 10vw;
+    width: 17vw;
     border-radius: 0px;
     background-color: transparent;
     border-bottom: 1px solid rgba(255, 255, 255, .5);
@@ -14,9 +14,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    top: 145px;
-    left: 200px;
-    padding: 0px;
+    top: 16vh;
+    left: 10vw;
     background-color: #130f40;
     font-family: 'Lato' !important;
 }

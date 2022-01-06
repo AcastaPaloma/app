@@ -24,18 +24,30 @@
                                                                 target="_self"
                                                                 rel="nofollow noopener">Search!</a></span>
 
-
+                    {% if 'logged_in_user' in session %}
                     <span class="button_cont" align="center"><a class="example_e" href="{{ url_for('about') }}"
                                                                 target="_self" rel="nofollow noopener">Upload</a></span>
 
+                    {% else %}
+                    <span class="button_cont" align="center"><a class="example_e" href="{{ url_for('create_account') }}"
+                                                                target="_self" rel="nofollow noopener">Upload</a></span>
+                    {% endif %}
 
                     <span class="button_cont" align="center"><a class="example_e" href="{{ url_for('servers') }}"
                                                                 target="_self"
                                                                 rel="nofollow noopener">Discover more!</a></span>
 
-                     <span class="button_cont" align="center"><a class="example_e" href="{{ url_for('create_account') }}"
+                    {% if 'logged_in_user' in session %}
+                    <span class="button_cont" align="center"><a class="example_e" href="{{ url_for('logout') }}"
+                                                                target="_self"
+                                                                rel="nofollow noopener">Logout</a></span>
+                    {% else %}
+                    <span class="button_cont" align="center"><a class="example_e" href="{{ url_for('create_account') }}"
                                                                 target="_self"
                                                                 rel="nofollow noopener">Create account/Login</a></span>
+                    {% endif %}
+
+
                 </ul>
             </nav>
         </strong>
@@ -46,7 +58,8 @@
 <footer>
 
     <p style="">Author: Kuan Yi Wang<br>
-        Thanks for voting for me! Follow me on Instagram <a href="https://www.instagram.com/acastajuanjui/">here</a>!!!</p>
+        Thanks for voting for me! Follow me on Instagram <a href="https://www.instagram.com/acastajuanjui/">here</a>!!!
+    </p>
 </footer>
 
 

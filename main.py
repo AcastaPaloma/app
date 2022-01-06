@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect
 from werkzeug.utils import secure_filename
 import sqlite3
 import os
@@ -6,6 +6,7 @@ import uuid
 import random
 
 app = Flask(__name__)
+app.secret_key = "~!@#$%^&*()_+QWERASDFZXCV"
 
 UPLOADED_FILE_DIR_PATH = os.path.join(os.path.dirname(__file__), "static", "uploaded-images")
 UPLOADED_ICON_FILE_DIR_PATH = os.path.join(os.path.dirname(__file__), "static", "discord_server_icons")
@@ -160,7 +161,7 @@ def search_results():
     connection = sqlite3.connect(DATA_BASE_FILE_PATH)
     cur = connection.cursor()
     cur.execute(
-        "SELECT * FROM Artpieces WHERE name Like ? OR artist_name Like ? OR image_name Like ? OR artpiece_type Like ? OR email like ?",
+        "SELECT * FROM Artpieces WHERE name Like ? OR artist_name Like ? OR image_name Like ? OR artpiece_type Like ? OR email Like ?",
         (requested_search, requested_search, requested_search, requested_search, requested_search))
     records = cur.fetchall()
 
@@ -193,6 +194,10 @@ def art_details():
 @app.route('/about')
 def about():
     return render_template('page2.html')
+
+@app.route('/logged_in_confirmation')
+def logged_in_confirmation():
+    return render_template('logged_in_confirmation.html')
 
 
 @app.route("/process", methods=["POST"])
@@ -239,7 +244,37 @@ def action_page():
 
     return render_template('successful_account_creation.html')
 
+@app.route("/terms_and_conditions")
+def terms_and_conditions():
+    return render_template("terms_and_conditions.html")
 
+@app.route("/login", methods=["POST", "GET"])
+@app.route("/", methods=["POST", "GET"])
+def login():
+    if request.method == 'GET':
+        return render_template("sign_in.html", username="", error_message="")
+
+    username = request.values.get("username")
+    password = request.values.get("password")
+    connection = sqlite3.connect('database2.sqlite')
+    cur = connection.cursor()
+    cur.execute("SELECT * FROM Accounts WHERE username=? and password=?", (username, password))
+    one_user = cur.fetchone()
+
+    if one_user is not None:
+        # Put a new value into session
+        session["logged_in_user"] = username
+        connection.close()
+
+        return redirect("/logged_in_confirmation")
+    else:
+        connection.close()
+        return render_template("sign_in.html", username=username, error_message="Username or password is wrong!")
+
+@app.route("/logged_out", methods=["POST", "GET"])
+def logout():
+    session.clear()
+    return render_template("successfully_logged_out.html")
 
 @app.route('/social')
 def servers():
